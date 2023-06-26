@@ -8,11 +8,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.SvenskaRegenter.DBHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import nu.paheco.SvenskaRegenter.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    lateinit var db: DBHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         lateinit var clayout: ConstraintLayout
@@ -23,6 +25,11 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
+        db = DBHelper.getInstance(this)
+        db.writableDatabase /* Force Database Access (open) */
 
         val navView: BottomNavigationView = binding.navView
 
