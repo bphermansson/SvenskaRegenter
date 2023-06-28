@@ -1,22 +1,117 @@
-package com.example.SvenskaRegenter
+package nu.pahecu.SvenskaRegenter
 
 /*
 https://stackoverflow.com/questions/74190789/where-in-kotlin-android-project-folder-to-copy-a-sqlite-database-file
 https://www.geeksforgeeks.org/android-sqlite-database-in-kotlin/
  */
 
-import android.content.ContentValues
+import android.annotation.SuppressLint
 import android.content.Context
-import android.database.Cursor
+import android.database.Cursor.*
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import java.io.FileOutputStream
+import android.util.Log
+import androidx.core.database.getIntOrNull
+import com.google.firebase.firestore.auth.User
+
+val DATABASENAME = "MY DATABASE"
+val TABLENAME = "Regenter"
+val COL_NAME = "name"
+val COL_AGE = "age"
+val COL_ID = "id"
 
 const val DATABASE_NAME = "SvenskaRegenter" /* the database name */
 const val ASSET_NAME = "SvenskaRegenter" /* The name of the asset file which could be different if required */
 const val DATABASE_VERSION = 1
 const val ASSET_COPY_BUFFER_SIZE = 8 * 1024
 
+/*
+Use the Database Inspector to add new data into DB
+ View > Tool Windows > App Inspection.
+Select the Database Inspector tab.
+
+https://developer.android.com/studio/inspect/database
+
+ */
+
+class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, "SvenskaRegenter", null, 3) {
+
+    fun insertData(user: User) {
+    }
+
+        @SuppressLint("Range")
+        fun readData(): MutableList<Int> {
+
+        //val list: MutableListOf<String>, <Int> = ArrayList()
+        //val intMutableList: MutableList = mutableListOf()
+        var list: MutableList<Int> = mutableListOf<Int>()
+
+        val db = this.readableDatabase
+        val query = "Select * from $TABLENAME"
+        val result = db.rawQuery(query, null)
+
+        if (result.moveToFirst()) {
+            var id = 0;
+            var name = ""
+            var startyear = 0;
+
+            do {
+                Log.i("SvenskaRegenterApp","LOOP" )
+
+                id = result.getInt(0)   // id is mandatory, don't have to check if it exists
+                if (result.getType(1) == FIELD_TYPE_STRING) {
+                    name = result.getString(1)
+                }
+
+                //if (result.getType(2) != FIELD_TYPE_NULL) {
+                    startyear = result.getInt(2)
+                //}
+
+
+                Log.i("SvenskaRegenterApp","Res: " + id + " " + name + " " + startyear + result.getIntOrNull(2) + result.getInt(3))
+                list.add(id)
+/*
+                val user = User()
+                user.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
+                user.name = result.getString(result.getColumnIndex(COL_NAME))
+                user.age = result.getString(result.getColumnIndex(COL_AGE)).toInt()
+                list.add(user)
+*/
+
+
+            }
+            while (result.moveToNext())
+        }
+        return list
+    }
+
+    override fun onCreate(p0: SQLiteDatabase?) {
+
+    }
+
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        /*
+        db.execSQL("DROP TABLE IF EXISTS $employeeTable")
+        db.execSQL("DROP TABLE IF EXISTS $deptTable")
+        db.execSQL("DROP TRIGGER IF EXISTS dept_id_trigger")
+        db.execSQL("DROP TRIGGER IF EXISTS dept_id_trigger22")
+        db.execSQL("DROP TRIGGER IF EXISTS fk_empdept_deptid")
+        db.execSQL("DROP VIEW IF EXISTS $viewEmps")
+
+         */
+        db.execSQL("ALTER TABLE Regenter ADD StopYear INTEGER")
+
+
+        onCreate(db)
+    }
+}
+
+data class Regent(val id: Int, val name: String, val StartYear: Int, val StopYear: Int)
+
+
+
+
+/*
 class DBHelper: SQLiteOpenHelper {
 
     private constructor(context: Context) : super(context, DATABASE_NAME,null, DATABASE_VERSION)
@@ -29,6 +124,19 @@ class DBHelper: SQLiteOpenHelper {
                 instance = DBHelper(context);
             }
             return instance as DBHelper
+        }
+
+       // fun getName(): Cursor? {
+            fun getName(context: Context): DBHelper {
+
+            // here we are creating a readable
+            // variable of our database
+            // as we want to read value from it
+           //
+           // below code returns a cursor to
+            // read data from the database
+            return db.rawQuery("SELECT * FROM " + TABLE_NAME, null)
+
         }
 
         private fun ifDatabaseExists(context: Context): Boolean {
@@ -50,7 +158,7 @@ class DBHelper: SQLiteOpenHelper {
         // here we have defined variables for our database
 
         // below is variable for database name
-        private val DATABASE_NAME = "GEEKS_FOR_GEEKS"
+        private val DATABASE_NAME = "SvenskaRegenter"
 
         // below is the variable for database version
         private val DATABASE_VERSION = 1
@@ -142,3 +250,6 @@ class DBHelper: SQLiteOpenHelper {
 
     }
 */
+
+
+ */

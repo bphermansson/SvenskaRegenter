@@ -19,12 +19,6 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
-
-
-
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +45,10 @@ class HomeFragment : Fragment() {
         clayout.setOnTouchListener(object : OnSwipeTouchListener(context) {
             override fun onSwipeLeft() {
                 super.onSwipeLeft()
+
+                val c = binding.txtName
+
+
                 Toast.makeText(context, "Swipe Left gesture detected",
                     Toast.LENGTH_SHORT)
                     .show()
