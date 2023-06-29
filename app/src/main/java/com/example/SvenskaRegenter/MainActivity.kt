@@ -20,6 +20,12 @@ import nu.pahecu.SvenskaRegenter.DataBaseHandler
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    companion object {
+        val regent = Regent()
+        //var regentList: MutableList<Regent> = mutableListOf<Regent>()
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         lateinit var clayout: ConstraintLayout
 
@@ -29,8 +35,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         val b = DataBaseHandler(this)
-        val res = b.readData()
-        Log.i("SvenskaRegenterApp","Res: " + res )
+        b.readData(2)
+        Log.i("SvenskaRegenterApp","Reg Res: "
+                + regent.name.toString()
+                + " " + regent.StartYear
+                + " " + regent.StopYear
+                + " " + regent.InfoText
+        )
+
 
         val navView: BottomNavigationView = binding.navView
 
@@ -81,4 +93,15 @@ class MainActivity : AppCompatActivity() {
 
          */
     }
+}
+data class Regent(
+    var id: Int,
+    var name: String,
+    var StartYear: Int,
+    var StopYear: Int,
+    var InfoText: String
+    )
+{
+    // This makes it possible to initialize an empty instance
+    constructor() : this(0, "dummy author", 0, 0, "")
 }
