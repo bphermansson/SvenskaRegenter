@@ -1,10 +1,5 @@
 package nu.pahecu.SvenskaRegenter
 
-/*
-https://stackoverflow.com/questions/74190789/where-in-kotlin-android-project-folder-to-copy-a-sqlite-database-file
-https://www.geeksforgeeks.org/android-sqlite-database-in-kotlin/
- */
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor.*
@@ -18,7 +13,6 @@ import nu.paheco.SvenskaRegenter.MainActivity
 val TABLENAME = "Regenter"
 
 /*
-Use the Database Inspector to add new data into DB
  View > Tool Windows > App Inspection.
 Select the Database Inspector tab.
 
@@ -26,23 +20,25 @@ https://developer.android.com/studio/inspect/database
 
  */
 
-class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, "SvenskaRegenter", null, 4) {
+class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, "SvenskaRegenter", null, 6) {
     fun insertData(user: User) {
     }
 
-    fun readData(id: Int) {
+    fun readData(regentId: Int) {
         val db = this.readableDatabase
-        val query = "Select * from $TABLENAME WHERE id = $id"
+        var query = "Select * from $TABLENAME WHERE id = $regentId"
+        Log.i("SvenskaRegenterApp", query)
         val result = db.rawQuery(query, null)
 
         if (result.moveToFirst()) {
+            Log.i("SvenskaRegenterApp", "Move first")
             var id = 0;
             var name = ""
             var startyear = 0;
             var stopyear = 0;
             var infotext = "";
 
-            do {
+           // do {
                 //Log.i("SvenskaRegenterApp","LOOP" )
 
                 // Int returns 0 if null, but empty strings return null. Try to avoid null exceptions with following crash!
@@ -56,16 +52,19 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, "Svenska
                     infotext = result.getString(4)
                 }
 
-                Log.i("SvenskaRegenterApp","Res: " + id + " " + name + " " + startyear + result.getIntOrNull(2) + result.getInt(3))
+                Log.i("SvenskaRegenterApp","Query result: " + regentId + " " + id + " " + name + " " + startyear + result.getIntOrNull(2) + result.getInt(3))
+/*
 
                 MainActivity.regent.id = id
                 MainActivity.regent.name = name
                 MainActivity.regent.StartYear = startyear
                 MainActivity.regent.StopYear = stopyear
                 MainActivity.regent.InfoText = infotext
+
+ */
             }
-            while (result.moveToNext())
-        }
+            //while (result.moveToNext())
+        //}
     }
 
     override fun onCreate(p0: SQLiteDatabase?) {
@@ -84,6 +83,11 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, "Svenska
          */
         // Use this to add a column
         //db.execSQL("ALTER TABLE Regenter ADD InfoText VARCHAR")
+
+        for (i in 4..100)
+        {
+            db.execSQL("INSERT INTO Regenter (Id) VALUES ($i)")
+        }
 
 
         onCreate(db)
