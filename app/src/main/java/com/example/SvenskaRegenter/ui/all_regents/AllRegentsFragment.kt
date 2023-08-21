@@ -46,14 +46,15 @@ class AllRegentsFragment : Fragment() {
 
     }
 
-     suspend fun openDB(): List<Regent> {
+     //suspend fun openDB(): List<Regent> {
+     fun openDB(): List<Regent> {
          //lifecycleScope.launch {
 
              var t = AppDatabase.getInstance(requireContext())
              var personList = t.regentDao().getAllRegents()
 
-             for (person in personList)
-                 Log.i(MainActivity.logTag, "List names: " + person)
+             //for (person in personList)
+             //    Log.i(MainActivity.logTag, "List names: " + person)
          //}
          return personList
     }
@@ -76,9 +77,9 @@ class AllRegentsFragment : Fragment() {
 
         Log.i(MainActivity.logTag, "onCreateView")
 
-        var regentToAdd = Regent(1, "l", "Linkin Park", 1999, 2121, "Info")
-        personadapter.people.add(regentToAdd)
-        Log.i(MainActivity.logTag, "Reg: " + regentToAdd)
+        //var regentToAdd = Regent(1, "l", "Linkin Park", 1999, 2121, "Info")
+        //personadapter.people.add(regentToAdd)
+        //Log.i(MainActivity.logTag, "Reg: " + regentToAdd)
 
         val personRecView = binding.peopleRV
         personRecView.adapter = personadapter
@@ -87,26 +88,26 @@ class AllRegentsFragment : Fragment() {
 //      personadapter.people.add(addname)
         var allRegents:  List<Regent> = listOf()
 
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO)  {
+        //viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO)  {
             //viewModelScope.launch(Dispatchers.IO) {
-            var regentToAdd = Regent(1, "Ride", "Sevendust", 1999, 2121, "Info")
-            personadapter.people.add(regentToAdd)
-            Log.i(MainActivity.logTag, "regentToAdd: " + regentToAdd)
+            //var regentToAdd = Regent(1, "Ride", "Sevendust", 1999, 2121, "Info")
+            //personadapter.people.add(regentToAdd)
+            //Log.i(MainActivity.logTag, "regentToAdd: " + regentToAdd)
 
-            allRegents = async { openDB() }.await()
-
+            //allRegents = async { openDB() }.await()
+        allRegents =  openDB()
             //Log.i(MainActivity.logTag, "Found: " + allRegents.size.toString())
 
             //Log.i(MainActivity.logTag, "allRegents: " + allRegents)
-
+/*
             try {
                 Log.i(MainActivity.logTag, "Regent0: " + allRegents[0])
                 personadapter.people.add(allRegents[0])
             } catch (exception: Exception) {
                 Log.i(MainActivity.logTag, exception.toString())
             }
-
-        }
+*/
+        //}
 
 
             printdata(allRegents)
@@ -138,14 +139,19 @@ class AllRegentsFragment : Fragment() {
     fun printdata(data: List<Regent>) {
         Log.i(MainActivity.logTag, "Data: " + data)
 
-        var regentToAdd = Regent(1, "l", "Sevendust", 1999, 2121, "Info")
-        personadapter.people.add(regentToAdd)
-        Log.i(MainActivity.logTag, "Data: " + regentToAdd)
-        try{
-            personadapter.people.add(data[0])
-            Log.i(MainActivity.logTag, "Data0: " + data[0])
-        } catch (exception: Exception) {
-            Log.i(MainActivity.logTag, exception.toString())
+        //var regentToAdd = Regent(1, "l", "Sevendust", 1999, 2121, "Info")
+        //personadapter.people.add(regentToAdd)
+        //Log.i(MainActivity.logTag, "Data: " + regentToAdd)
+        Log.i(MainActivity.logTag, "Data: " + data.size)
+        var itemNr = 0
+        for (item in data) {
+            try {
+                personadapter.people.add(data[itemNr])
+                Log.i(MainActivity.logTag, "Data0: " + data[itemNr])
+                itemNr++
+            } catch (exception: Exception) {
+                Log.i(MainActivity.logTag, exception.toString())
+            }
         }
     }
 

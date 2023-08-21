@@ -23,13 +23,14 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
+        /*
         val db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "my-database"
         )
             .createFromAsset("SvenskaRegenter.db")
             .build()
-
+*/
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)

@@ -44,7 +44,8 @@ data class Regent(
 @Dao
 interface RegentDao {
     @Query("SELECT * FROM Regenter")
-    suspend fun getAllRegents(): List<Regent>
+    //suspend fun getAllRegents(): List<Regent>
+    fun getAllRegents(): List<Regent>
 
     @Query("SELECT * FROM Regenter where last_name = ''")
     fun getNoLastname(): List<Regent>
@@ -81,6 +82,7 @@ abstract class AppDatabase: RoomDatabase() {
                     "SvenskaRegenter")
                     .fallbackToDestructiveMigration()
                     //.createFromAsset("SvenskaRegenter_db")
+                    .allowMainThreadQueries()
                     .build()
             }
             return INSTANCE!!

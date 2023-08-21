@@ -11,9 +11,11 @@ import nu.paheco.SvenskaRegenter.R
 
 //class PeopleAdapter(val mainAct : MainActivity) : RecyclerView.Adapter<PeopleAdapter.ViewHolder>() {
 class PeopleAdapter : RecyclerView.Adapter<PeopleAdapter.ViewHolder>() {
-    var regentToAdd = Regent(1, "l", "Oasis", 1999, 2121, "Info")
+    //var regentToAdd = Regent(1, "l", "Oasis", 1999, 2121, "Info")
 
-    var people = mutableListOf<Regent>(regentToAdd)
+    //var people = mutableListOf<Regent>(regentToAdd)
+    var people = mutableListOf<Regent>()
+
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         val personName : TextView
