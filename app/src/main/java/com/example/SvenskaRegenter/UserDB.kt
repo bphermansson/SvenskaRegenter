@@ -3,6 +3,8 @@ package com.example.SvenskaRegenter
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import androidx.room.*
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.flow.Flow
 
 /*
@@ -29,8 +31,8 @@ open the database file through Android Studios Device File Explorer.
 @Entity(tableName = "Regenter")
 data class Regent(
     @PrimaryKey(autoGenerate = true) var uid: Int,
-    @ColumnInfo(name = "first_name") var firstName: String,
-    @ColumnInfo(name = "last_name") var lastName: String,
+    @ColumnInfo(name = "first_name") var firstName: String?,
+    @ColumnInfo(name = "last_name") var lastName: String?,
     @ColumnInfo(name = "StartYear") var StartYear: Int,
     @ColumnInfo(name = "StopYear") var StopYear: Int,
     @ColumnInfo(name = "InfoText") var InfoText: String
@@ -75,11 +77,15 @@ abstract class AppDatabase: RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
         fun getInstance(context: Context): AppDatabase {
             if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(context, AppDatabase::class.java, "SvenskaRegenter.db").build()
+                INSTANCE = Room.databaseBuilder(context, AppDatabase::class.java,
+                    "SvenskaRegenter")
+                    .fallbackToDestructiveMigration()
+                    //.createFromAsset("SvenskaRegenter_db")
+                    .build()
             }
             return INSTANCE!!
         }
-
+        /*
         fun getDatabase(context: Context): AppDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
@@ -92,22 +98,34 @@ abstract class AppDatabase: RoomDatabase() {
             // Return database.
             return INSTANCE!!
         }
-
+*/
         fun destroyInstance() {
             INSTANCE = null
         }
 
+
+
         //https://medium.com/@myofficework000/migration-in-room-db-babee083c562
+/*
+        val MIGRATION_1_3 = object : Migration(1, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                //database.execSQL("Alter TABLE Blog ADD COLUMN body TEXT ")
+            }
+        }
+
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
                 "SvenskaRegenter.db"
             )
-                //.addMigrations(MIGRATION_1_2)
+                //.addMigrations(MIGRATION_1_3)
                 .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigrationFrom(1)
+                .allowMainThreadQueries()
                 .build()
         }
+*/
     }
 
 }

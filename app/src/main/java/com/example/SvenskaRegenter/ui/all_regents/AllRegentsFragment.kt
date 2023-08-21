@@ -33,7 +33,7 @@ class AllRegentsFragment : Fragment() {
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<PeopleAdapter.ViewHolder>? = null
 
-    private val appDatabase by lazy { AppDatabase.getDatabase(requireContext()).regentDao()}
+    //private val appDatabase by lazy { AppDatabase.getDatabase(requireContext()).regentDao()}
 
     var personadapter = PeopleAdapter()
 
@@ -98,8 +98,16 @@ class AllRegentsFragment : Fragment() {
             //Log.i(MainActivity.logTag, "Found: " + allRegents.size.toString())
 
             //Log.i(MainActivity.logTag, "allRegents: " + allRegents)
-            Log.i(MainActivity.logTag, "Regent0: " + allRegents[0])
-            personadapter.people.add(allRegents[0])
+
+            try {
+                Log.i(MainActivity.logTag, "Regent0: " + allRegents[0])
+                personadapter.people.add(allRegents[0])
+            } catch (exception: Exception) {
+                Log.i(MainActivity.logTag, exception.toString())
+            }
+
+        }
+
 
             printdata(allRegents)
             Log.i(MainActivity.logTag, allRegents.size.toString())
@@ -112,7 +120,7 @@ class AllRegentsFragment : Fragment() {
                 personadapter.people.add(item)
             }
             */
-        }
+        //}
 /*
         for (item in allRegents) {
             Log.i(MainActivity.logTag, "Item: " + item)
@@ -133,10 +141,12 @@ class AllRegentsFragment : Fragment() {
         var regentToAdd = Regent(1, "l", "Sevendust", 1999, 2121, "Info")
         personadapter.people.add(regentToAdd)
         Log.i(MainActivity.logTag, "Data: " + regentToAdd)
-
-        personadapter.people.add(data[0])
-        Log.i(MainActivity.logTag, "Data0: " + data[0])
-
+        try{
+            personadapter.people.add(data[0])
+            Log.i(MainActivity.logTag, "Data0: " + data[0])
+        } catch (exception: Exception) {
+            Log.i(MainActivity.logTag, exception.toString())
+        }
     }
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
