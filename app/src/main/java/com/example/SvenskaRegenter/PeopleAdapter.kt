@@ -18,9 +18,11 @@ class PeopleAdapter : RecyclerView.Adapter<PeopleAdapter.ViewHolder>() {
 
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        val personName : TextView
+        val firstName : TextView
+        val lastName: TextView
         init {
-            personName = view.findViewById(R.id.usernameTV)
+            firstName = view.findViewById(R.id.fornameTV)
+            lastName = view.findViewById(R.id.lastnameTV)
         }
     }
 
@@ -30,8 +32,9 @@ class PeopleAdapter : RecyclerView.Adapter<PeopleAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.personName.text = people[position].firstName + " " + people[position].lastName
-        Log.i(MainActivity.logTag, "RITA RAD " + position.toString())
+        holder.firstName.text = people[position].firstName
+        holder.lastName.text = people[position].lastName
+        //Log.i(MainActivity.logTag, "RITA RAD " + position.toString())
 
         //holder.personName.text = people[position]
 

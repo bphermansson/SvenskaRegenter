@@ -11,6 +11,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.text.PrecomputedTextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,16 +28,19 @@ import kotlinx.coroutines.withContext
 import nu.paheco.SvenskaRegenter.MainActivity
 import nu.paheco.SvenskaRegenter.R
 import nu.paheco.SvenskaRegenter.databinding.FragmentAllRegentsBinding
+import nu.paheco.SvenskaRegenter.ui.home.HomeViewModel
 
 class AllRegentsFragment : Fragment() {
     private var _binding: FragmentAllRegentsBinding? = null
+    private val viewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
 
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<PeopleAdapter.ViewHolder>? = null
+    //private var layoutManager: RecyclerView.LayoutManager? = null
+    //private var adapter: RecyclerView.Adapter<PeopleAdapter.ViewHolder>? = null
 
     //private val appDatabase by lazy { AppDatabase.getDatabase(requireContext()).regentDao()}
 
     var personadapter = PeopleAdapter()
+    var clk: MutableLiveData<String> = MutableLiveData("")
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -44,18 +49,16 @@ class AllRegentsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
     }
 
      //suspend fun openDB(): List<Regent> {
      fun openDB(): List<Regent> {
          //lifecycleScope.launch {
 
-             var t = AppDatabase.getInstance(requireContext())
-             var personList = t.regentDao().getAllRegents()
 
-             //for (person in personList)
-             //    Log.i(MainActivity.logTag, "List names: " + person)
-         //}
+         var t = AppDatabase.getInstance(requireContext())
+         var personList = t.regentDao().getAllRegents()
          return personList
     }
 
@@ -70,11 +73,15 @@ class AllRegentsFragment : Fragment() {
         _binding = FragmentAllRegentsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.txtAllRegents
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        var regTxt = binding.txtAllRegents
+        clk.observe(viewLifecycleOwner, Observer {
+            regTxt.text  = clk.value.toString()
+        })
 
+        var regTxtContent  = "HEJ"
+        clk.value?.let {
+            clk.value =  regTxtContent
+        }
         Log.i(MainActivity.logTag, "onCreateView")
 
         //var regentToAdd = Regent(1, "l", "Linkin Park", 1999, 2121, "Info")
