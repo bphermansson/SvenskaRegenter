@@ -14,24 +14,21 @@ import com.example.SvenskaRegenter.AppDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import nu.paheco.SvenskaRegenter.databinding.ActivityMainBinding
 
+/*
+To add regent:
+insert into Regenter values (3,"Anund ", "Jakob", 1022, 1050, "Info")
+To edit:
+update Regenter set  first_name = "Erik" where uid = 1
+ */
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    lateinit var db : AppDatabase
-
     override fun onCreate(savedInstanceState: Bundle?) {
         lateinit var clayout: ConstraintLayout
 
         super.onCreate(savedInstanceState)
-
-        /*
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "my-database"
-        )
-            .createFromAsset("SvenskaRegenter.db")
-            .build()
-*/
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         val view = binding.root
         setContentView(view)
 
@@ -50,8 +47,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        var logTag: String = "SimpleRoomDBLog"
 
+        var logTag: String = "SimpleRoomDBLog"
         var currentRegentId = 0 // Which regent to show?
 
 

@@ -1,8 +1,13 @@
 package nu.paheco.SvenskaRegenter.ui.all_regents
 
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
 
 class AllRegentsViewModel : ViewModel() {
 
@@ -11,3 +16,4 @@ class AllRegentsViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 }
+
