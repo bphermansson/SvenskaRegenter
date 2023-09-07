@@ -30,13 +30,6 @@ open the database file through Android Studios Device File Explorer.
 <appname>/databases
 
  */
-
-
-
-
-
-
-
 @Database(entities = [Regent::class], version = 3, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun regentDao(): RegentDao

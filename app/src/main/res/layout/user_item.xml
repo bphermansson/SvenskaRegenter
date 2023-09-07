@@ -6,7 +6,20 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/fornameTV"
+        android:id="@+id/idTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="idTV"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/forenameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -24,7 +37,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="lastnameTV"
-        app:layout_constraintStart_toEndOf="@+id/fornameTV"
+        app:layout_constraintStart_toEndOf="@+id/forenameTV"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

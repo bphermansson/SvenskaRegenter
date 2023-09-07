@@ -1,20 +1,13 @@
 package com.example.SvenskaRegenter
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import nu.paheco.SvenskaRegenter.MainActivity
 import nu.paheco.SvenskaRegenter.R
-import nu.paheco.SvenskaRegenter.databinding.ActivityMainBinding
-import nu.paheco.SvenskaRegenter.databinding.UserItemBinding
-import nu.paheco.SvenskaRegenter.ui.all_regents.AllRegentsFragment
 
 //class PeopleAdapter(context: Context) : RecyclerView.Adapter<PeopleAdapter.MyViewHolder>() {
 class PeopleAdapter(private val onClickListener: OnClickListener) : RecyclerView.Adapter<PeopleAdapter.ViewHolder>() {
@@ -23,9 +16,19 @@ class PeopleAdapter(private val onClickListener: OnClickListener) : RecyclerView
     //private var onClickListener: OnClickListener? = null
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
-        val personName : TextView
+        val uid : TextView
+        val foreName : TextView
+        val lastName : TextView
+        val StartYear : TextView
+        val StopYear : TextView
+        val InfoText : TextView
         init {
-            personName = view.findViewById(R.id.fornameTV)
+            uid = view.findViewById(R.id.idTV)
+            foreName = view.findViewById(R.id.forenameTV)
+            lastName = view.findViewById(R.id.lastnameTV)
+            StartYear = view.findViewById(R.id.startYearTV)
+            StopYear = view.findViewById(R.id.stopYearTV)
+            InfoText = view.findViewById(R.id.infoTV)
         }
     }
 
@@ -37,7 +40,8 @@ class PeopleAdapter(private val onClickListener: OnClickListener) : RecyclerView
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //val item = allRegents[position]
         Log.i(MainActivity.logTag, "RITA RAD " + position.toString())
-        holder.personName.text = people[position]
+        holder.foreName.text = people[position]
+        holder.lastName.text = people[position]
 
         holder.itemView.setOnClickListener {
             if (onClickListener != null) {

@@ -61,9 +61,11 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         val regentDao = db.regentDao()
-        val users: List<Regent> = regentDao.getAllRegents()
+        //val users: List<Regent> = regentDao.getAllRegents()
+        users = regentDao.getAllRegents()
         for(pers in users) {
             Log.i(MainActivity.logTag, pers.toString())
+            Log.i(MainActivity.logTag, pers.firstName.toString())
 
         }
         Log.i(MainActivity.logTag, users.size.toString())
@@ -76,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
         var logTag: String = "SimpleRoomDBLog"
         var currentRegentId = 0 // Which regent to show?
-
+        var users: List<Regent> = emptyList()
         //val users: List<Regent> = List<Regent>
 
 
