@@ -9,13 +9,30 @@
         android:id="@+id/navigation_home"
         android:name="nu.paheco.SvenskaRegenter.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_all_regents"
+            app:destination="@id/navigation_all_regents" />
+        <!--defaultValue is important to have!-->
+        <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue="0"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_all_regents"
         android:name="nu.paheco.SvenskaRegenter.ui.all_regents.AllRegentsFragment"
         android:label="@string/title_all_regents"
-        tools:layout="@layout/fragment_all_regents" />
+        tools:layout="@layout/fragment_all_regents" >
+        <action
+            android:id="@+id/action_navigation_all_regents_to_navigation_about"
+            app:destination="@id/navigation_about" />
+        <action
+            android:id="@+id/action_navigation_all_regents_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_about"

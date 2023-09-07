@@ -1,62 +1,52 @@
 package nu.paheco.SvenskaRegenter.ui.all_regents
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import androidx.core.text.PrecomputedTextCompat
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.SvenskaRegenter.AppDatabase
 import com.example.SvenskaRegenter.PeopleAdapter
-import com.example.SvenskaRegenter.Regent
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import nu.paheco.SvenskaRegenter.MainActivity
 import nu.paheco.SvenskaRegenter.R
 import nu.paheco.SvenskaRegenter.databinding.FragmentAllRegentsBinding
+import nu.paheco.SvenskaRegenter.ui.home.HomeFragment
+import nu.paheco.SvenskaRegenter.ui.home.HomeFragmentDirections
 import nu.paheco.SvenskaRegenter.ui.home.HomeViewModel
 
-class AllRegentsFragment : Fragment() {
-    private var _binding: FragmentAllRegentsBinding? = null
+
+class AllRegentsFragment : Fragment(R.layout.fragment_all_regents) {
+    //private var _binding: FragmentAllRegentsBinding? = null
+    //private lateinit var binding: ActivityMainBinding
+    //private var FragmentAllRegentsBinding: FragmentAllRegentsBinding? = null
+    private var _binding:FragmentAllRegentsBinding? = null;
+    private val binding get() = _binding!!;
+
     private val viewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
+    //
+    //var personadapter = PeopleAdapter()
+    private lateinit var adapter: PeopleAdapter
 
-    //private var layoutManager: RecyclerView.LayoutManager? = null
-    //private var adapter: RecyclerView.Adapter<PeopleAdapter.ViewHolder>? = null
+    //var personadapter = PeopleAdapter(requireContext()!!.applicationContext)
 
-    //private val appDatabase by lazy { AppDatabase.getDatabase(requireContext()).regentDao()}
+   // var personadapter = PeopleAdapter()
 
-    var personadapter = PeopleAdapter()
     var clk: MutableLiveData<String> = MutableLiveData("")
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+    //private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-    }
-
-     //suspend fun openDB(): List<Regent> {
-     fun openDB(): List<Regent> {
-         var t = AppDatabase.getInstance(requireContext())
-         var personList = t.regentDao().getAllRegents()
-         return personList
     }
 
     override fun onCreateView(
@@ -68,10 +58,21 @@ class AllRegentsFragment : Fragment() {
             ViewModelProvider(this).get(AllRegentsViewModel::class.java)
 
         _binding = FragmentAllRegentsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val View = binding.root
 
-        binding.peopleRV.adapter = personadapter
+        Log.i(MainActivity.logTag, "peopleRV")
 
+        adapter = PeopleAdapter(PeopleAdapter.OnClickListener {
+                name ->
+                val action = AllRegentsFragmentDirections.actionNavigationAllRegentsToNavigationHome(name)
+                findNavController().navigate(action)
+            }
+        )
+        adapter.people.add("Fredrik")
+
+        val personRecView = binding.peopleRV
+        personRecView.adapter = adapter
+        personRecView.layoutManager = LinearLayoutManager(requireActivity())
 
         var regTxt = binding.txtAllRegents
         clk.observe(viewLifecycleOwner, Observer {
@@ -84,69 +85,13 @@ class AllRegentsFragment : Fragment() {
         }
         Log.i(MainActivity.logTag, "onCreateView")
 
-        //var regentToAdd = Regent(1, "l", "Linkin Park", 1999, 2121, "Info")
-        //personadapter.people.add(regentToAdd)
-        //Log.i(MainActivity.logTag, "Reg: " + regentToAdd)
 
-        val personRecView = binding.peopleRV
-        personRecView.adapter = personadapter
-        personRecView.layoutManager = LinearLayoutManager(requireActivity())
 
-//      personadapter.people.add(addname)
-        var allRegents: List<Regent> = listOf()
-        allRegents =  openDB()
-        printdata(allRegents)
-        Log.i(MainActivity.logTag, allRegents.size.toString())
-
-        var btnReload = binding.btnReload
-
-        btnReload.setOnClickListener() {
-            allRegents =  openDB()
-            printdata(allRegents)
-
-        }
-
-        return root
-    }
-
-    fun printdata(data: List<Regent>) {
-        Log.i(MainActivity.logTag, "Data: " + data)
-
-        var itemNr = 0
-        for (item in data) {
-            try {
-                personadapter.people.add(data[itemNr])
-                Log.i(MainActivity.logTag, "Data0: " + data[itemNr])
-                itemNr++
-            } catch (exception: Exception) {
-                Log.i(MainActivity.logTag, exception.toString())
-            }
-        }
+        return View
     }
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
-/*
-        var regentToAdd = Regent(1, "P", "H", 1973, 2121, "Info")
-        var allRegents: List<Regent> = listOf() // Initialize empty list
-        Log.i(MainActivity.logTag, "onViewCreated")
-
-        personadapter.people.add(regentToAdd)
-
-        //allRegents[1].uid = 0
-
-        val regents: Regent
-        lifecycleScope.launch(Dispatchers.Main) {
-            allRegents = async {openDB()}.await()
-        }
-
-        Log.i(MainActivity.logTag, "Names from db: " + allRegents.toString())
-       //Log.i(MainActivity.logTag, "Name: " + allRegents[0].firstName.toString())
-
-        val personRecView = requireView().findViewById<RecyclerView>(R.id.peopleRV)
-        personRecView.adapter = personadapter
-        personRecView.layoutManager = LinearLayoutManager(context)
-*/
     }
 
     override fun onDestroyView() {

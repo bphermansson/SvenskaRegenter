@@ -7,50 +7,59 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/txtName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/regents"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
-        android:id="@+id/imgRegent"
+        android:id="@+id/imgSingleRegent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRegentYears"
-        app:srcCompat="@android:mipmap/sym_def_app_icon"
+        app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/txtRegentYears"
+        android:id="@+id/txtRegentName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="0-2023"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtName" />
+        android:text="name"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/imgSingleRegent"
+        app:layout_constraintTop_toBottomOf="@+id/txtImageText" />
 
     <TextView
-        android:id="@+id/txtInfo"
+        android:id="@+id/txtImageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="imagetext"
+        app:layout_constraintStart_toStartOf="@+id/imgSingleRegent"
+        app:layout_constraintTop_toBottomOf="@+id/imgSingleRegent" />
+
+    <TextView
+        android:id="@+id/txtStartYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="93dp"
+        android:text="startyear"
+        app:layout_constraintStart_toEndOf="@+id/txtRegentName"
+        app:layout_constraintTop_toTopOf="@+id/txtRegentName" />
+
+    <TextView
+        android:id="@+id/txtStopYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:text="stopyear"
+        app:layout_constraintStart_toEndOf="@+id/txtStartYear"
+        app:layout_constraintTop_toTopOf="@+id/txtStartYear" />
+
+    <TextView
+        android:id="@+id/txtSingleRegentInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Info"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgRegent" />
-
-
+        android:text="info"
+        app:layout_constraintStart_toStartOf="@+id/txtRegentName"
+        app:layout_constraintTop_toBottomOf="@+id/txtRegentName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

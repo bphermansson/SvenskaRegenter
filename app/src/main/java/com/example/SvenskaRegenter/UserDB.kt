@@ -1,11 +1,15 @@
 package com.example.SvenskaRegenter
 
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.room.*
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.flow.Flow
+import nu.paheco.SvenskaRegenter.MainActivity
+import java.security.AccessController.getContext
 
 /*
 
@@ -27,53 +31,16 @@ open the database file through Android Studios Device File Explorer.
 
  */
 
-// A Data Class — Defining the table and all the fields for the table
-@Entity(tableName = "Regenter")
-data class Regent(
-    @PrimaryKey(autoGenerate = true) var uid: Int,
-    @ColumnInfo(name = "first_name") var firstName: String?,
-    @ColumnInfo(name = "last_name") var lastName: String?,
-    @ColumnInfo(name = "StartYear") var StartYear: Int,
-    @ColumnInfo(name = "StopYear") var StopYear: Int,
-    @ColumnInfo(name = "InfoText") var InfoText: String
-)
 
 
 
-// A DAO Interface — Includes all the possible Queries used in the Project, using Annotations.
-@Dao
-interface RegentDao {
-    @Query("SELECT * FROM Regenter")
-    //suspend fun getAllRegents(): List<Regent>
-    fun getAllRegents(): List<Regent>
 
-    @Query("SELECT * FROM Regenter where last_name = ''")
-    fun getNoLastname(): List<Regent>
 
-    @Query("SELECT * FROM Regenter WHERE uid IN (:userIds)")
-    fun loadAllByIds(userIds: IntArray): List<Regent>
-
-    @Query("SELECT * FROM Regenter WHERE first_name LIKE :first AND " +
-            "last_name LIKE :last LIMIT 1")
-    fun findByName(first: String, last: String): Regent
-
-    @Insert
-    fun insertAll(vararg users: Regent)
-
-    @Delete
-    fun delete(user: Regent)
-
-    @Query("SELECT * FROM Regenter")
-    fun getNotes(): List<Regent>
-}
 
 @Database(entities = [Regent::class], version = 3, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
-    @Volatile
-    private var INSTANCE: AppDatabase? = null
-
     abstract fun regentDao(): RegentDao
-
+/*
     companion object {
         private var INSTANCE: AppDatabase? = null
         fun getInstance(context: Context): AppDatabase {
@@ -105,6 +72,11 @@ abstract class AppDatabase: RoomDatabase() {
             INSTANCE = null
         }
 
+        fun openDB(): List<Regent> {
+            var t = AppDatabase.getInstance(this)
+            var personList = t.regentDao().getAllRegents()
+            return personList
+        }
 
 
         //https://medium.com/@myofficework000/migration-in-room-db-babee083c562
@@ -129,5 +101,7 @@ abstract class AppDatabase: RoomDatabase() {
         }
 */
     }
+
+ */
 
 }

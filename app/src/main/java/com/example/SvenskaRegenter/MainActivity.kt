@@ -3,13 +3,17 @@ package nu.paheco.SvenskaRegenter;
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.room.Room
 import com.example.SvenskaRegenter.AppDatabase
+import com.example.SvenskaRegenter.PeopleAdapter
+import com.example.SvenskaRegenter.Regent
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import nu.paheco.SvenskaRegenter.databinding.ActivityMainBinding
@@ -23,10 +27,14 @@ update Regenter set  first_name = "Erik" where uid = 1
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         lateinit var clayout: ConstraintLayout
 
         super.onCreate(savedInstanceState)
+
+        Log.i(MainActivity.logTag, "main")
+
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         val view = binding.root
@@ -44,6 +52,24 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "SvenskaRegenter"
+        )
+            .allowMainThreadQueries()
+            .build()
+
+        val regentDao = db.regentDao()
+        val users: List<Regent> = regentDao.getAllRegents()
+        for(pers in users) {
+            Log.i(MainActivity.logTag, pers.toString())
+
+        }
+        Log.i(MainActivity.logTag, users.size.toString())
+
+
+
     }
 
     companion object {
@@ -51,10 +77,12 @@ class MainActivity : AppCompatActivity() {
         var logTag: String = "SimpleRoomDBLog"
         var currentRegentId = 0 // Which regent to show?
 
+        //val users: List<Regent> = List<Regent>
+
 
     }
-
 }
+
 
 //{
     // This makes it possible to initialize an empty instance

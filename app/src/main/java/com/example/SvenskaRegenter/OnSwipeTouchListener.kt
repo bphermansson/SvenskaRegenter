@@ -30,7 +30,7 @@ internal open class OnSwipeTouchListener(c: Context?) :
         onLongClick()
         super.onLongPress(e)
         }
-        override fun onFling(
+        /*override fun onFling(
         e1: MotionEvent,
         e2: MotionEvent,
         velocityX: Float,
@@ -70,7 +70,12 @@ internal open class OnSwipeTouchListener(c: Context?) :
         }
         return false
         }
+
+
+         */
         }
+
+
         open fun onSwipeRight() {}
         open fun onSwipeLeft() {}
         open fun onSwipeUp() {}

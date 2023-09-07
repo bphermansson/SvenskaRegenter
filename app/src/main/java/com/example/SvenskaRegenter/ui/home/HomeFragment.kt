@@ -16,12 +16,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.example.SvenskaRegenter.AppDatabase
 import com.example.SvenskaRegenter.PeopleAdapter
 import nu.paheco.SvenskaRegenter.MainActivity
 import nu.paheco.SvenskaRegenter.OnSwipeTouchListener
 import nu.paheco.SvenskaRegenter.databinding.FragmentHomeBinding
-import nu.pahecu.SvenskaRegenter.DataBaseHandler
+import nu.paheco.SvenskaRegenter.ui.all_regents.AllRegentsFragment
 
 class HomeFragment : Fragment() {
     // Livedata variabels
@@ -54,7 +55,7 @@ class HomeFragment : Fragment() {
 // Livedata observe
 
     regName.observe(viewLifecycleOwner, Observer {
-        binding.txtName.text  = regName.value.toString()
+        binding.txtRegentName.text  = regName.value.toString()
     })
 
         regName.value = "=?"
@@ -64,15 +65,17 @@ class HomeFragment : Fragment() {
     val root: View = binding.root
 
     // Bind textview
-    val textView: TextView = binding.txtName
+    val textView: TextView = binding.txtRegentName
 
     return root
 }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val args: HomeFragmentArgs by navArgs()
+        Log.i(MainActivity.logTag, "Passed2: " + args.id.toString())
+        Toast.makeText(requireContext(), args.id.toString(), Toast.LENGTH_SHORT).show()
 
-override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-super.onViewCreated(view, savedInstanceState)
-
-    lateinit var clayout: ConstraintLayout
+        lateinit var clayout: ConstraintLayout
     clayout = binding.fraghome
     clayout.setOnTouchListener(object : OnSwipeTouchListener(context) {
     override fun onSwipeLeft() {
@@ -93,7 +96,7 @@ super.onViewCreated(view, savedInstanceState)
             Toast.LENGTH_SHORT
         ).show()
         MainActivity.currentRegentId++
-        Log.i("SvenskaRegenterApp","Id: " + MainActivity.currentRegentId)
+        Log.i(MainActivity.logTag,"Id: " + MainActivity.currentRegentId)
         getRegentData()
         regName.value="HEJ"
 
@@ -116,6 +119,7 @@ super.onViewCreated(view, savedInstanceState)
 }
 private fun getRegentData() {
     try {
+        /*
         val b = DataBaseHandler(requireContext())
         b.readData(MainActivity.currentRegentId)
         Log.i("SvenskaRegenterApp","Reg Res: "
@@ -128,6 +132,8 @@ private fun getRegentData() {
 
                  */
         )
+
+         */
     }
     catch (ex: Exception){
         Log.i("SvenskaRegenterApp","Error: " + ex)

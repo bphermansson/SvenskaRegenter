@@ -9,7 +9,7 @@ import android.util.Log
 import androidx.core.database.getIntOrNull
 import com.google.firebase.firestore.auth.User
 import nu.paheco.SvenskaRegenter.MainActivity
-
+/*
 val TABLENAME = "Regenter"
 
 /*
@@ -93,3 +93,5 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, "Svenska
         onCreate(db)
     }
 }
+
+ */
