@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import nu.paheco.SvenskaRegenter.MainActivity
 import nu.paheco.SvenskaRegenter.R
 
-//class PeopleAdapter(context: Context) : RecyclerView.Adapter<PeopleAdapter.MyViewHolder>() {
 class PeopleAdapter(private val onClickListener: OnClickListener) : RecyclerView.Adapter<PeopleAdapter.ViewHolder>() {
     var allRegents = mutableListOf<Regent>()
     var people = mutableListOf<String>("Arne", "Bertil", "Ceasar", "David")
@@ -19,16 +18,14 @@ class PeopleAdapter(private val onClickListener: OnClickListener) : RecyclerView
         val uid : TextView
         val foreName : TextView
         val lastName : TextView
-        val StartYear : TextView
-        val StopYear : TextView
-        val InfoText : TextView
+        val regYears : TextView
+        //val InfoText : TextView
         init {
             uid = view.findViewById(R.id.idTV)
             foreName = view.findViewById(R.id.forenameTV)
             lastName = view.findViewById(R.id.lastnameTV)
-            StartYear = view.findViewById(R.id.startYearTV)
-            StopYear = view.findViewById(R.id.stopYearTV)
-            InfoText = view.findViewById(R.id.infoTV)
+            regYears = view.findViewById(R.id.yearsTV)
+            //InfoText = view.findViewById(R.id.infoTV)
         }
     }
 
@@ -38,21 +35,21 @@ class PeopleAdapter(private val onClickListener: OnClickListener) : RecyclerView
         return ViewHolder(view)
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //val item = allRegents[position]
         Log.i(MainActivity.logTag, "RITA RAD " + position.toString())
-        holder.foreName.text = people[position]
-        holder.lastName.text = people[position]
+        holder.foreName.text = allRegents[position].foreName
+        holder.lastName.text = allRegents[position].lastName
+        holder.regYears.text = allRegents[position].StartYear.toString() + " - " + allRegents[position].StopYear.toString()
+        //holder.InfoText.text = allRegents[position].InfoText
 
         holder.itemView.setOnClickListener {
             if (onClickListener != null) {
-                //onClickListener!!.onClick(position, item )
-                val c = people[position]
-                onClickListener.onClick(c)
+                val clickedId = allRegents[position].uid.toString()
+                onClickListener.onClick(clickedId)
             }
         }
     }
         override fun getItemCount(): Int {
-            return people.size
+            return allRegents.size
         }
 
         // A function to bind the onclickListener.

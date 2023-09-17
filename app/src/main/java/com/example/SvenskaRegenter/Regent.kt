@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Regenter")
 data class Regent(
      @PrimaryKey(autoGenerate = true) var uid: Int,
-     @ColumnInfo(name = "first_name") var firstName: String?,
+     @ColumnInfo(name = "first_name") var foreName: String?,
      @ColumnInfo(name = "last_name") var lastName: String?,
      @ColumnInfo(name = "StartYear") var StartYear: Int,
      @ColumnInfo(name = "StopYear") var StopYear: Int,

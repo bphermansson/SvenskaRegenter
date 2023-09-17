@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_all_regents"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/reg_list"
         android:title="@string/title_all_regents" />
 
     <item

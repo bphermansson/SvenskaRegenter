@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         lateinit var clayout: ConstraintLayout
 
         super.onCreate(savedInstanceState)
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         Log.i(MainActivity.logTag, "main")
 
@@ -63,15 +66,14 @@ class MainActivity : AppCompatActivity() {
         val regentDao = db.regentDao()
         //val users: List<Regent> = regentDao.getAllRegents()
         users = regentDao.getAllRegents()
+        /*
         for(pers in users) {
             Log.i(MainActivity.logTag, pers.toString())
             Log.i(MainActivity.logTag, pers.firstName.toString())
 
         }
         Log.i(MainActivity.logTag, users.size.toString())
-
-
-
+        */
     }
 
     companion object {

@@ -5,61 +5,81 @@
     android:id="@+id/fraghome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#006AA7"
     tools:context=".ui.home.HomeFragment">
 
-    <ImageView
-        android:id="@+id/imgSingleRegent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="210dp"
+        android:background="#D4FECC00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/txtRegentName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="name"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/imgSingleRegent"
-        app:layout_constraintTop_toBottomOf="@+id/txtImageText" />
+        <ImageView
+            android:id="@+id/imgSingleRegent"
+            android:layout_width="146dp"
+            android:layout_height="147dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stadshuset_olof_sk_tkonung"
+            tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/txtImageText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="imagetext"
-        app:layout_constraintStart_toStartOf="@+id/imgSingleRegent"
-        app:layout_constraintTop_toBottomOf="@+id/imgSingleRegent" />
+        <TextView
+            android:id="@+id/txtImageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="imagetext"
+            app:layout_constraintStart_toStartOf="@+id/imgSingleRegent"
+            app:layout_constraintTop_toBottomOf="@+id/imgSingleRegent" />
 
-    <TextView
-        android:id="@+id/txtStartYear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="93dp"
-        android:text="startyear"
-        app:layout_constraintStart_toEndOf="@+id/txtRegentName"
-        app:layout_constraintTop_toTopOf="@+id/txtRegentName" />
+        <TextView
+            android:id="@+id/txtRegentForeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Forname"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/imgSingleRegent"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
-    <TextView
-        android:id="@+id/txtStopYear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="stopyear"
-        app:layout_constraintStart_toEndOf="@+id/txtStartYear"
-        app:layout_constraintTop_toTopOf="@+id/txtStartYear" />
+        <TextView
+            android:id="@+id/txtRegentLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Lastname"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/txtRegentForeName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtYears"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="34dp"
+            android:text="txtYears"
+            app:layout_constraintStart_toEndOf="@+id/imgSingleRegent"
+            app:layout_constraintTop_toBottomOf="@+id/txtRegentLastName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/txtSingleRegentInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="info"
-        app:layout_constraintStart_toStartOf="@+id/txtRegentName"
-        app:layout_constraintTop_toBottomOf="@+id/txtRegentName" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
